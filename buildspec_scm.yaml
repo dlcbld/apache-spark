@@ -20,6 +20,6 @@ steps:
   - type: Command
     name: "run the Pi example locally"
     command: |
-      chmod +x ./build/mvn
+      chmod +x ./bin/run-example
       ./bin/run-example SparkPi
       

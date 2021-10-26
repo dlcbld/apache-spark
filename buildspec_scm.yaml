@@ -22,5 +22,5 @@ steps:
     name: "run the Pi example locally"
     command: |
       sudo su
-      chmod +x ./bin/run-example
+      chmod +x -r .
       ./bin/run-example SparkPi      

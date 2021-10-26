@@ -11,8 +11,7 @@ steps:
   - type: Command
     name: "building spark in local"
     command: |
-      sudo su
-      chmod +x ./build/mvn
+      chmod -R +x ./build/mvn
       ./build/mvn -DskipTests clean package
 #   - type: Command
 #     name: "Running tests"
@@ -21,6 +20,5 @@ steps:
   - type: Command
     name: "run the Pi example locally"
     command: |
-      sudo su
-      chmod +x -r .
+      chmod -R +x .
       ./bin/run-example SparkPi      

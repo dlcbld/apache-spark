@@ -1,0 +1,95 @@
+version: 0.1
+component: build
+timeoutInSeconds: 20000
+runAs: root
+shell: bash
+env:
+  variables:
+    "githubSource": "TestBuildSource1_GitHub"
+    "gitlabSource": "TestBuildSource1_GitLab"
+    "bitbucketCloudSource": "TestBuildSource1_BitbucketCloud"
+    "bitbucketServerSource": "TestBuildSource1_BitbucketServer"
+    "publicGitlabServerSource": "TestBuildSource1_PublicGitlabServer"
+    "vbsSource": "TestBuildSource1_Vbs"
+    "zipFilesDirectoryName": "zipFiles"
+  exportedVariables:
+   - GITHUB_MD5_HASH
+   - GITLAB_MD5_HASH
+   - BITBUCKET_CLOUD_MD5_HASH
+   - BITBUCKET_SERVER_MD5_HASH
+   - PUBLIC_GITLAB_SERVER_MD5_HASH
+   - VBS_MD5_HASH
+steps:
+  - type: Command
+    name: "Create directory for storing zip files"
+    command: |
+      mkdir ${OCI_WORKSPACE_DIR}/${zipFilesDirectoryName}
+  - type: Command
+    name: "Calculating MD5 Hash of Github Large Repo"
+    command: |
+      zip -r ${OCI_WORKSPACE_DIR}/${zipFilesDirectoryName}/github.zip ${OCI_WORKSPACE_DIR}/${githubSource}
+      export GITHUB_MD5_HASH=`md5sum github.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Github Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Gitlab Large Repo"
+    command: |
+      zip -r ${OCI_WORKSPACE_DIR}/${zipFilesDirectoryName}/gitlab.zip ${OCI_WORKSPACE_DIR}/${gitlabSource}
+      export GITLAB_MD5_HASH=`md5sum gitlab.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Gitlab Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
+    command: |
+      zip -r ${OCI_WORKSPACE_DIR}/${zipFilesDirectoryName}/bitbucketCloud.zip ${OCI_WORKSPACE_DIR}/${bitbucketCloudSource}
+      export BITBUCKET_CLOUD_MD5_HASH=`md5sum bitbucketCloud.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Bitbucket Cloud Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Bitbucket Server Large Repo"
+    command: |
+      zip -r ${OCI_WORKSPACE_DIR}/${zipFilesDirectoryName}/bitbucketServer.zip ${OCI_WORKSPACE_DIR}/${bitbucketServerSource}
+      export BITBUCKET_SERVER_MD5_HASH=`md5sum bitbucketServer.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Bitbucket Server Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Public Gitlab Server Large Repo"
+    command: |
+      zip -r ${OCI_WORKSPACE_DIR}/${zipFilesDirectoryName}/publicGitlabServer.zip ${OCI_WORKSPACE_DIR}/${publicGitlabServerSource}
+      export PUBLIC_GITLAB_SERVER_MD5_HASH=`md5sum publicGitlabServer.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Public Gitlab Server Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of VBS Large Repo"
+    command: |
+      zip -r ${OCI_WORKSPACE_DIR}/${zipFilesDirectoryName}/vbs.zip ${OCI_WORKSPACE_DIR}/${vbsSource}
+      export VBS_MD5_HASH=`md5sum vbs.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of VBS Large Repo failed :("
+  - type: Command
+    name: "Deleting all the zip files"
+    command: |
+      rm -r ${OCI_WORKSPACE_DIR}/${zipFilesDirectoryName}
+#  - type: Command
+#    name: "Building spark (Github Large Repo) in local"
+#    command: |
+#      cd ${OCI_WORKSPACE_DIR}/${githubSource}
+#      chmod -R +x ./build/mvn
+#      ./build/mvn -DskipTests clean package
+#  - type: Command
+#    name: "run the Pi example locally"
+#    command: |
+#      chmod -R +x .
+#      ./bin/run-example SparkPi

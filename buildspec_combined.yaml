@@ -20,6 +20,7 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"
     command: |
+      pwd
       zip -d TestBuildSource_GitHub.zip */.git/*
       export GITHUB_MD5_HASH=`md5sum TestBuildSource_GitHub.zip | awk '{ print $1 }'`
       echo Github hash is $GITHUB_MD5_HASH
@@ -30,6 +31,7 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Gitlab Large Repo"
     command: |
+      pwd
       zip -d TestBuildSource_GitLab.zip */.git/*
       export GITLAB_MD5_HASH=`md5sum TestBuildSource_GitLab.zip | awk '{ print $1 }'`
       echo Gitlab hash is $GITLAB_MD5_HASH
@@ -40,6 +42,7 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
     command: |
+      pwd
       zip -d TestBuildSource_BitbucketCloud.zip */.git/*
       export BITBUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
     onFailure:
@@ -49,6 +52,7 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Bitbucket Server Large Repo"
     command: |
+      pwd
       zip -d TestBuildSource_BitbucketServer.zip */.git/*
       export BITBUCKET_SERVER_MD5_HASH=`md5sum TestBuildSource_BitbucketServer.zip | awk '{ print $1 }'`
     onFailure:
@@ -58,6 +62,7 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Public Gitlab Server Large Repo"
     command: |
+      pwd
       zip -d TestBuildSource_PublicGitlabServer.zip */.git/*
       export PUBLIC_GITLAB_SERVER_MD5_HASH=`md5sum TestBuildSource_PublicGitlabServer.zip | awk '{ print $1 }'`
     onFailure:
@@ -67,6 +72,7 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of VBS Large Repo"
     command: |
+      pwd
       zip -d TestBuildSource_Vbs.zip */.git/*
       export VBS_MD5_HASH=`md5sum TestBuildSource_Vbs.zip | awk '{ print $1 }'`
     onFailure:

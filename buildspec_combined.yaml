@@ -18,7 +18,6 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -d TestBuildSource_GitHub.zip */.git/*
       export GITHUB_MD5_HASH=`md5sum TestBuildSource_GitHub.zip | awk '{ print $1 }'`
-      echo Github hash is $GITHUB_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -29,7 +28,6 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -d TestBuildSource_GitLab.zip */.git/*
       export GITLAB_MD5_HASH=`md5sum TestBuildSource_GitLab.zip | awk '{ print $1 }'`
-      echo Gitlab hash is $GITLAB_MD5_HASH
     onFailure:
       - type: Command
         command: |

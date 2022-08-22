@@ -13,9 +13,14 @@ env:
    - VBS_MD5_HASH
 steps:
   - type: Command
-    name: "Calculating MD5 Hash of Github Large Repo"
+    name: Listing all files
     command: |
       cd ..
+      ls -al
+  - type: Command
+    name: "Calculating MD5 Hash of Github Large Repo"
+    command: |
+#      cd ..
       zip -d TestBuildSource_GitHub.zip */.git/*
       export GITHUB_MD5_HASH=`md5sum TestBuildSource_GitHub.zip | awk '{ print $1 }'`
       echo Github hash is $GITHUB_MD5_HASH
@@ -37,7 +42,7 @@ steps:
     name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
     command: |
       zip -d TestBuildSource_BitbucketCloud.zip */.git/*
-      export BITBUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
+      export BITUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
     onFailure:
       - type: Command
         command: |

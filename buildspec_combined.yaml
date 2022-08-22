@@ -74,14 +74,13 @@ steps:
       - type: Command
         command: |
           echo "Calculating MD5 Hash of VBS Large Repo failed :("
-#  - type: Command
-#    name: "Building spark (Github Large Repo) in local"
-#    command: |
-#      cd ${OCI_WORKSPACE_DIR}/${githubSource}
-#      chmod -R +x ./build/mvn
-#      ./build/mvn -DskipTests clean package
-#  - type: Command
-#    name: "run the Pi example locally"
-#    command: |
-#      chmod -R +x .
-#      ./bin/run-example SparkPi
+  - type: Command
+    name: "Building spark (Github Large Repo)"
+    command: |
+      chmod -R +x ./build/mvn
+      ./build/mvn -DskipTests clean package
+  - type: Command
+    name: "Run the Pi example locally"
+    command: |
+      chmod -R +x .
+      ./bin/run-example SparkPi

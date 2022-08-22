@@ -84,7 +84,7 @@ steps:
         command: |
           echo "Calculating MD5 Hash of SCM Large Repo failed :("
   - type: Command
-    name: "Building spark (Github Large Repo)"
+    name: "Building spark"
     command: |
       chmod -R +x ./build/mvn
       ./build/mvn -DskipTests clean package

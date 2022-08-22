@@ -4,14 +4,6 @@ timeoutInSeconds: 20000
 runAs: root
 shell: bash
 env:
-  variables:
-    "githubSourcePath": "${OCI_WORKSPACE_DIR}/TestBuildSource_GitHub"
-    "gitlabSourcePath": "${OCI_WORKSPACE_DIR}/TestBuildSource_GitLab"
-    "bitbucketCloudSourcePath": "${OCI_WORKSPACE_DIR}/TestBuildSource_BitbucketCloud"
-    "bitbucketServerSourcePath": "${OCI_WORKSPACE_DIR}/TestBuildSource_BitbucketServer"
-    "publicGitlabServerSourcePath": "${OCI_WORKSPACE_DIR}/TestBuildSource_PublicGitlabServer"
-    "vbsSourcePath": "${OCI_WORKSPACE_DIR}/TestBuildSource_Vbs"
-    "zipFilesDirectoryPath": "${OCI_WORKSPACE_DIR}/zipFiles"
   exportedVariables:
    - GITHUB_MD5_HASH
    - GITLAB_MD5_HASH
@@ -21,14 +13,10 @@ env:
    - VBS_MD5_HASH
 steps:
   - type: Command
-    name: "Create directory for storing zip files"
-    command: |
-      mkdir ${zipFilesDirectoryPath}
-  - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"
     command: |
-      zip -r ${zipFilesDirectoryPath}/github.zip ${githubSourcePath}
-      export GITHUB_MD5_HASH=`md5sum ${zipFilesDirectoryPath}/github.zip | awk '{ print $1 }'`
+      zip -d TestBuildSource_GitHub.zip TestBuildSource_GitHub/.git/*
+      export GITHUB_MD5_HASH=`md5sum TestBuildSource_GitHub.zip | awk '{ print $1 }'`
     onFailure:
       - type: Command
         command: |
@@ -36,8 +24,8 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Gitlab Large Repo"
     command: |
-      zip -r ${zipFilesDirectoryPath}/gitlab.zip ${OCI_WORKSPACE_DIR}/${gitlabSourcePath}
-      export GITLAB_MD5_HASH=`md5sum ${zipFilesDirectoryPath}/gitlab.zip | awk '{ print $1 }'`
+      zip -d TestBuildSource_GitLab.zip TestBuildSource_GitLab/.git/*
+      export GITLAB_MD5_HASH=`md5sum TestBuildSource_GitLab.zip | awk '{ print $1 }'`
     onFailure:
       - type: Command
         command: |
@@ -45,8 +33,8 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
     command: |
-      zip -r ${zipFilesDirectoryPath}/bitbucketCloud.zip ${OCI_WORKSPACE_DIR}/${bitbucketCloudSourcePath}
-      export BITBUCKET_CLOUD_MD5_HASH=`md5sum ${zipFilesDirectoryPath}/bitbucketCloud.zip | awk '{ print $1 }'`
+      zip -d TestBuildSource_BitbucketCloud.zip TestBuildSource_BitbucketCloud/.git/*
+      export BITBUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
     onFailure:
       - type: Command
         command: |
@@ -54,8 +42,8 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Bitbucket Server Large Repo"
     command: |
-      zip -r ${zipFilesDirectoryPath}/bitbucketServer.zip ${OCI_WORKSPACE_DIR}/${bitbucketServerSourcePath}
-      export BITBUCKET_SERVER_MD5_HASH=`md5sum ${zipFilesDirectoryPath}/bitbucketServer.zip | awk '{ print $1 }'`
+      zip -d TestBuildSource_BitbucketServer.zip TestBuildSource_BitbucketServer/.git/*
+      export BITBUCKET_SERVER_MD5_HASH=`md5sum TestBuildSource_BitbucketServer.zip | awk '{ print $1 }'`
     onFailure:
       - type: Command
         command: |
@@ -63,8 +51,8 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Public Gitlab Server Large Repo"
     command: |
-      zip -r ${zipFilesDirectoryPath}/publicGitlabServer.zip ${OCI_WORKSPACE_DIR}/${publicGitlabServerSourcePath}
-      export PUBLIC_GITLAB_SERVER_MD5_HASH=`md5sum ${zipFilesDirectoryPath}/publicGitlabServer.zip | awk '{ print $1 }'`
+      zip -d TestBuildSource_PublicGitlabServer.zip TestBuildSource_PublicGitlabServer/.git/*
+      export PUBLIC_GITLAB_SERVER_MD5_HASH=`md5sum TestBuildSource_PublicGitlabServer.zip | awk '{ print $1 }'`
     onFailure:
       - type: Command
         command: |
@@ -72,16 +60,12 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of VBS Large Repo"
     command: |
-      zip -r ${zipFilesDirectoryPath}/vbs.zip ${OCI_WORKSPACE_DIR}/${vbsSourcePath}
-      export VBS_MD5_HASH=`md5sum ${zipFilesDirectoryPath}/vbs.zip | awk '{ print $1 }'`
+      zip -d TestBuildSource_Vbs.zip TestBuildSource_Vbs/.git/*
+      export VBS_MD5_HASH=`md5sum TestBuildSource_Vbs.zip | awk '{ print $1 }'`
     onFailure:
       - type: Command
         command: |
           echo "Calculating MD5 Hash of VBS Large Repo failed :("
-  - type: Command
-    name: "Deleting all the zip files"
-    command: |
-      rm -r ${zipFilesDirectoryPath}
 #  - type: Command
 #    name: "Building spark (Github Large Repo) in local"
 #    command: |

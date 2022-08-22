@@ -11,6 +11,7 @@ env:
    - BITBUCKET_SERVER_MD5_HASH
    - PUBLIC_GITLAB_SERVER_MD5_HASH
    - VBS_MD5_HASH
+   - SCM_MD5_HASH
 steps:
   - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"
@@ -72,6 +73,16 @@ steps:
       - type: Command
         command: |
           echo "Calculating MD5 Hash of VBS Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of SCM Large Repo"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}
+      zip -dq TestBuildSource_Scm.zip */.git/*
+      export SCM_MD5_HASH=`md5sum TestBuildSource_Scm.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of SCM Large Repo failed :("
   - type: Command
     name: "Building spark (Github Large Repo)"
     command: |

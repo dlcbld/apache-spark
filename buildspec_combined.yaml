@@ -6,11 +6,11 @@ shell: bash
 env:
   exportedVariables:
    - GITHUB_MD5_HASH
-#   - GITLAB_MD5_HASH
-#   - BITBUCKET_CLOUD_MD5_HASH
-#   - BITBUCKET_SERVER_MD5_HASH
-#   - PUBLIC_GITLAB_SERVER_MD5_HASH
-#   - VBS_MD5_HASH
+   - GITLAB_MD5_HASH
+   - BITBUCKET_CLOUD_MD5_HASH
+   - BITBUCKET_SERVER_MD5_HASH
+   - PUBLIC_GITLAB_SERVER_MD5_HASH
+   - VBS_MD5_HASH
 steps:
   - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"
@@ -23,52 +23,52 @@ steps:
       - type: Command
         command: |
           echo "Calculating MD5 Hash of Github Large Repo failed :("
-#  - type: Command
-#    name: "Calculating MD5 Hash of Gitlab Large Repo"
-#    command: |
-#      zip -d TestBuildSource_GitLab.zip apache-spark/.git/*
-#      export GITLAB_MD5_HASH=`md5sum TestBuildSource_GitLab.zip | awk '{ print $1 }'`
-#      echo Gitlab hash is $GITLAB_MD5_HASH
-#    onFailure:
-#      - type: Command
-#        command: |
-#          echo "Calculating MD5 Hash of Gitlab Large Repo failed :("
-#  - type: Command
-#    name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
-#    command: |
-#      zip -d TestBuildSource_BitbucketCloud.zip apache-spark/.git/*
-#      export BITBUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
-#    onFailure:
-#      - type: Command
-#        command: |
-#          echo "Calculating MD5 Hash of Bitbucket Cloud Large Repo failed :("
-#  - type: Command
-#    name: "Calculating MD5 Hash of Bitbucket Server Large Repo"
-#    command: |
-#      zip -d TestBuildSource_BitbucketServer.zip apache-spark/.git/*
-#      export BITBUCKET_SERVER_MD5_HASH=`md5sum TestBuildSource_BitbucketServer.zip | awk '{ print $1 }'`
-#    onFailure:
-#      - type: Command
-#        command: |
-#          echo "Calculating MD5 Hash of Bitbucket Server Large Repo failed :("
-#  - type: Command
-#    name: "Calculating MD5 Hash of Public Gitlab Server Large Repo"
-#    command: |
-#      zip -d TestBuildSource_PublicGitlabServer.zip apache-spark/.git/*
-#      export PUBLIC_GITLAB_SERVER_MD5_HASH=`md5sum TestBuildSource_PublicGitlabServer.zip | awk '{ print $1 }'`
-#    onFailure:
-#      - type: Command
-#        command: |
-#          echo "Calculating MD5 Hash of Public Gitlab Server Large Repo failed :("
-#  - type: Command
-#    name: "Calculating MD5 Hash of VBS Large Repo"
-#    command: |
-#      zip -d TestBuildSource_Vbs.zip apache-spark/.git/*
-#      export VBS_MD5_HASH=`md5sum TestBuildSource_Vbs.zip | awk '{ print $1 }'`
-#    onFailure:
-#      - type: Command
-#        command: |
-#          echo "Calculating MD5 Hash of VBS Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Gitlab Large Repo"
+    command: |
+      zip -d TestBuildSource_GitLab.zip */.git/*
+      export GITLAB_MD5_HASH=`md5sum TestBuildSource_GitLab.zip | awk '{ print $1 }'`
+      echo Gitlab hash is $GITLAB_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Gitlab Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
+    command: |
+      zip -d TestBuildSource_BitbucketCloud.zip */.git/*
+      export BITBUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Bitbucket Cloud Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Bitbucket Server Large Repo"
+    command: |
+      zip -d TestBuildSource_BitbucketServer.zip */.git/*
+      export BITBUCKET_SERVER_MD5_HASH=`md5sum TestBuildSource_BitbucketServer.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Bitbucket Server Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Public Gitlab Server Large Repo"
+    command: |
+      zip -d TestBuildSource_PublicGitlabServer.zip */.git/*
+      export PUBLIC_GITLAB_SERVER_MD5_HASH=`md5sum TestBuildSource_PublicGitlabServer.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Public Gitlab Server Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of VBS Large Repo"
+    command: |
+      zip -d TestBuildSource_Vbs.zip */.git/*
+      export VBS_MD5_HASH=`md5sum TestBuildSource_Vbs.zip | awk '{ print $1 }'`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of VBS Large Repo failed :("
 #  - type: Command
 #    name: "Building spark (Github Large Repo) in local"
 #    command: |

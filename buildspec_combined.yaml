@@ -17,6 +17,7 @@ steps:
     command: |
       zip -d TestBuildSource_GitHub.zip TestBuildSource_GitHub/.git/*
       export GITHUB_MD5_HASH=`md5sum TestBuildSource_GitHub.zip | awk '{ print $1 }'`
+      echo Github hash is $GITHUB_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -26,6 +27,7 @@ steps:
     command: |
       zip -d TestBuildSource_GitLab.zip TestBuildSource_GitLab/.git/*
       export GITLAB_MD5_HASH=`md5sum TestBuildSource_GitLab.zip | awk '{ print $1 }'`
+      echo Gitlab hash is $GITLAB_MD5_HASH
     onFailure:
       - type: Command
         command: |

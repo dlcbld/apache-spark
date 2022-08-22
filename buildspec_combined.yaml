@@ -42,7 +42,7 @@ steps:
     name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
     command: |
       zip -d TestBuildSource_BitbucketCloud.zip */.git/*
-      export BITUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
+      export BITBUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
     onFailure:
       - type: Command
         command: |

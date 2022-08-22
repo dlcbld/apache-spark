@@ -15,6 +15,7 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"
     command: |
+      cd ..
       zip -d TestBuildSource_GitHub.zip TestBuildSource_GitHub/.git/*
       export GITHUB_MD5_HASH=`md5sum TestBuildSource_GitHub.zip | awk '{ print $1 }'`
       echo Github hash is $GITHUB_MD5_HASH

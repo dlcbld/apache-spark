@@ -15,11 +15,8 @@ env:
 steps:
   - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"
-    command: |
-      cd ${OCI_WORKSPACE_DIR}
-      zip -rq github.zip TestBuildSource_GitHub
-      zip -dq github.zip */.git/*
-      export GITHUB_MD5_HASH=`md5sum github.zip | awk '{ print $1 }'`
+    command: 
+      export GITHUB_MD5_HASH=`find . -xdev -type f -print0 | LC_COLLATE=C sort -z | xargs -0 cat | md5sum - | awk '{ print $1 }'`
       echo Github hash is $GITHUB_MD5_HASH
     onFailure:
       - type: Command

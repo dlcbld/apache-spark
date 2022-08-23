@@ -6,12 +6,12 @@ shell: bash
 env:
   exportedVariables:
    - GITHUB_MD5_HASH
-#    - GITLAB_MD5_HASH
-#    - BITBUCKET_CLOUD_MD5_HASH
-#    - BITBUCKET_SERVER_MD5_HASH
-#    - PUBLIC_GITLAB_SERVER_MD5_HASH
-#    - VBS_MD5_HASH
-#    - SCM_MD5_HASH
+   - GITLAB_MD5_HASH
+   - BITBUCKET_CLOUD_MD5_HASH
+   - BITBUCKET_SERVER_MD5_HASH
+   - PUBLIC_GITLAB_SERVER_MD5_HASH
+   - VBS_MD5_HASH
+   - SCM_MD5_HASH
 steps:
   - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"

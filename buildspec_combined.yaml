@@ -16,8 +16,7 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"
     command: 
-      cd ..
-      export GITHUB_MD5_HASH=`ls -alR TestBuildSource_Github | md5sum - | awk '{ print $1 }'`
+      export GITHUB_MD5_HASH=`find . -type f -exec md5sum {} + | md5sum | awk '{ print $1 }'`
       echo Github hash is $GITHUB_MD5_HASH
     onFailure:
       - type: Command

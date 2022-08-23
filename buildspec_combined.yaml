@@ -19,6 +19,7 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -dq TestBuildSource_GitHub.zip */.git/*
       export GITHUB_MD5_HASH=`md5sum TestBuildSource_GitHub.zip | awk '{ print $1 }'`
+      echo Github hash is $GITHUB_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -29,6 +30,7 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -dq TestBuildSource_GitLab.zip */.git/*
       export GITLAB_MD5_HASH=`md5sum TestBuildSource_GitLab.zip | awk '{ print $1 }'`
+      echo Gitlab hash is $GITLAB_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -39,6 +41,7 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -dq TestBuildSource_BitbucketCloud.zip */.git/*
       export BITBUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
+      echo Bitbucket Cloud hash is $BITBUCKET_CLOUD_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -49,6 +52,7 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -dq TestBuildSource_BitbucketServer.zip */.git/*
       export BITBUCKET_SERVER_MD5_HASH=`md5sum TestBuildSource_BitbucketServer.zip | awk '{ print $1 }'`
+      echo Bitbucket Server hash is $BITBUCKET_SERVER_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -59,6 +63,7 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -dq TestBuildSource_PublicGitlabServer.zip */.git/*
       export PUBLIC_GITLAB_SERVER_MD5_HASH=`md5sum TestBuildSource_PublicGitlabServer.zip | awk '{ print $1 }'`
+      echo Public Gitlab Server hash is $PUBLIC_GITLAB_SERVER_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -69,6 +74,7 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -dq TestBuildSource_Vbs.zip */.git/*
       export VBS_MD5_HASH=`md5sum TestBuildSource_Vbs.zip | awk '{ print $1 }'`
+      echo VBS hash is $VBS_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -79,6 +85,7 @@ steps:
       cd ${OCI_WORKSPACE_DIR}
       zip -dq TestBuildSource_Scm.zip */.git/*
       export SCM_MD5_HASH=`md5sum TestBuildSource_Scm.zip | awk '{ print $1 }'`
+      echo SCM hash is $SCM_MD5_HASH
     onFailure:
       - type: Command
         command: |

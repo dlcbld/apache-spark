@@ -23,6 +23,14 @@ steps:
       - type: Command
         command: |
           echo "Calculating MD5 Hash of Github Large Repo failed :("
+  - type: Command
+    name: "Printing MD5 Hash of Github Large Repo"
+    command: 
+      echo Github hash is $GITHUB_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Printing MD5 Hash of Github Large Repo failed :("
 #   - type: Command
 #     name: "Calculating MD5 Hash of Gitlab Large Repo"
 #     command: |

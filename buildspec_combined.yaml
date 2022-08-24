@@ -16,9 +16,9 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Github Large Repo"
     command: |
-      cd ${OCI_WORKSPACE_DIR}
-      zip -dq TestBuildSource_GitHub.zip */.git/*
-      export GITHUB_MD5_HASH=`md5sum TestBuildSource_GitHub.zip | awk '{ print $1 }'`
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_GitHub
+      export GITHUB_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Github MD5 Hash is $GITHUB_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -26,9 +26,9 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Gitlab Large Repo"
     command: |
-      cd ${OCI_WORKSPACE_DIR}
-      zip -dq TestBuildSource_GitLab.zip */.git/*
-      export GITLAB_MD5_HASH=`md5sum TestBuildSource_GitLab.zip | awk '{ print $1 }'`
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_GitLab
+      export GITLAB_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Gitlab MD5 hash is $GITLAB_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -36,9 +36,9 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
     command: |
-      cd ${OCI_WORKSPACE_DIR}
-      zip -dq TestBuildSource_BitbucketCloud.zip */.git/*
-      export BITBUCKET_CLOUD_MD5_HASH=`md5sum TestBuildSource_BitbucketCloud.zip | awk '{ print $1 }'`
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_BitbucketCloud
+      export BITBUCKET_CLOUD_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Bitbucket Cloud MD5 hash is $BITBUCKET_CLOUD_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -46,9 +46,9 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Bitbucket Server Large Repo"
     command: |
-      cd ${OCI_WORKSPACE_DIR}
-      zip -dq TestBuildSource_BitbucketServer.zip */.git/*
-      export BITBUCKET_SERVER_MD5_HASH=`md5sum TestBuildSource_BitbucketServer.zip | awk '{ print $1 }'`
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_BitbucketServer
+      export BITBUCKET_SERVER_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Bitbucket Server MD5 hash is $BITBUCKET_SERVER_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -56,9 +56,9 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of Public Gitlab Server Large Repo"
     command: |
-      cd ${OCI_WORKSPACE_DIR}
-      zip -dq TestBuildSource_PublicGitlabServer.zip */.git/*
-      export PUBLIC_GITLAB_SERVER_MD5_HASH=`md5sum TestBuildSource_PublicGitlabServer.zip | awk '{ print $1 }'`
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_PublicGitlabServer
+      export PUBLIC_GITLAB_SERVER_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Public Gitlab Server MD5 hash is $PUBLIC_GITLAB_SERVER_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -66,9 +66,9 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of VBS Large Repo"
     command: |
-      cd ${OCI_WORKSPACE_DIR}
-      zip -dq TestBuildSource_Vbs.zip */.git/*
-      export VBS_MD5_HASH=`md5sum TestBuildSource_Vbs.zip | awk '{ print $1 }'`
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_Vbs
+      export VBS_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo VBS MD5 hash is $VBS_MD5_HASH
     onFailure:
       - type: Command
         command: |
@@ -76,9 +76,9 @@ steps:
   - type: Command
     name: "Calculating MD5 Hash of SCM Large Repo"
     command: |
-      cd ${OCI_WORKSPACE_DIR}
-      zip -dq TestBuildSource_Scm.zip */.git/*
-      export SCM_MD5_HASH=`md5sum TestBuildSource_Scm.zip | awk '{ print $1 }'`
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_Scm
+      export SCM_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo SCM MD5 hash is $SCM_MD5_HASH
     onFailure:
       - type: Command
         command: |

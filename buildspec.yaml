@@ -1,3 +1,5 @@
+# IMPORTANT : In case there are any changes made to this repo, please update the expected MD5 hash in the below file
+# https://bitbucket.oci.oraclecorp.com/projects/DLCBLD/repos/dlc-build-service/browse/dlc-build-service-canary/src/main/java/com/oracle/pic/dlc/build/integtest/usecase/longrunning/BldLargeRepoUseCaseTest.java
 version: 0.1
 component: build
 timeoutInSeconds: 20000

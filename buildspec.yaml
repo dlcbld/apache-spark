@@ -3,25 +3,10 @@ component: build
 timeoutInSeconds: 20000
 runAs: root
 shell: bash
-env:
-  exportedVariables:
-   - version
 steps:
 
   - type: Command
     name: "building spark in local"
     command: |
-      chmod -R +x ./build/mvn
-      ./build/mvn -DskipTests clean package
-#   - type: Command
-#     name: "Running tests"
-#     command: |
-#       ./dev/run-tests
-  - type: Command
-    name: "run the Pi example locally"
-    command: |
-      chmod -R +x .
-      ./bin/run-example SparkPi
-      
-  
+      echo Hi
       

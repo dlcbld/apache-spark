@@ -1,0 +1,97 @@
+# IMPORTANT : In case there are any changes made to this repo, please update the expected MD5 hash in the below file
+# https://bitbucket.oci.oraclecorp.com/projects/DLCBLD/repos/dlc-build-service/browse/dlc-build-service-canary/src/main/java/com/oracle/pic/dlc/build/integtest/usecase/longrunning/BldLargeRepoUseCaseTest.java
+version: 0.1
+component: build
+timeoutInSeconds: 20000
+runAs: root
+shell: bash
+env:
+  exportedVariables:
+   - GITHUB_MD5_HASH
+   - GITLAB_MD5_HASH
+   - BITBUCKET_CLOUD_MD5_HASH
+   - BITBUCKET_SERVER_MD5_HASH
+   - PUBLIC_GITLAB_SERVER_MD5_HASH
+   - VBS_MD5_HASH
+   - SCM_MD5_HASH
+steps:
+  - type: Command
+    name: "Calculating MD5 Hash of Github Large Repo"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_GitHub
+      export GITHUB_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Github MD5 Hash is $GITHUB_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Github Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Gitlab Large Repo"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_GitLab
+      export GITLAB_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Gitlab MD5 hash is $GITLAB_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Gitlab Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Bitbucket Cloud Large Repo"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_BitbucketCloud
+      export BITBUCKET_CLOUD_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Bitbucket Cloud MD5 hash is $BITBUCKET_CLOUD_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Bitbucket Cloud Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Bitbucket Server Large Repo"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_BitbucketServer
+      export BITBUCKET_SERVER_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Bitbucket Server MD5 hash is $BITBUCKET_SERVER_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Bitbucket Server Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of Public Gitlab Server Large Repo"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_PublicGitlabServer
+      export PUBLIC_GITLAB_SERVER_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo Public Gitlab Server MD5 hash is $PUBLIC_GITLAB_SERVER_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of Public Gitlab Server Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of VBS Large Repo"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_Vbs
+      export VBS_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo VBS MD5 hash is $VBS_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of VBS Large Repo failed :("
+  - type: Command
+    name: "Calculating MD5 Hash of SCM Large Repo"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/TestBuildSource_Scm
+      export SCM_MD5_HASH=`find . ! -path '*.git*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum | awk '{ print $1 }'`
+      echo SCM MD5 hash is $SCM_MD5_HASH
+    onFailure:
+      - type: Command
+        command: |
+          echo "Calculating MD5 Hash of SCM Large Repo failed :("
+  - type: Command
+    name: "Building spark"
+    command: |
+      chmod -R +x ./build/mvn
+      ./build/mvn -DskipTests clean package
+  - type: Command
+    name: "Run the Pi example locally"
+    command: |
+      chmod -R +x .
+      ./bin/run-example SparkPi

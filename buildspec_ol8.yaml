@@ -1,0 +1,27 @@
+# IMPORTANT : In case there are any changes made to this repo, please update the expected MD5 hash in the below file
+# https://bitbucket.oci.oraclecorp.com/projects/DLCBLD/repos/dlc-build-service/browse/dlc-build-service-canary/src/main/java/com/oracle/pic/dlc/build/integtest/usecase/longrunning/BldLargeRepoUseCaseTest.java
+version: 0.1
+component: build
+timeoutInSeconds: 20000
+runAs: root
+shell: bash
+env:
+  exportedVariables:
+   - version
+steps:
+
+  - type: Command
+    name: "building spark in local"
+    command: |
+      chmod -R +x ./build/mvn
+      ./build/mvn -DskipTests clean package
+#   - type: Command
+#     name: "Running tests"
+#     command: |
+#       ./dev/run-tests
+  - type: Command
+    name: "run the Pi example locally"
+    command: |
+      export _JAVA_OPTIONS="--add-opens=java.base/sun.security.util=ALL-UNNAMED --add-opens=java.base/sun.reflect.annotation=ALL-UNNAMED --add-exports=java.base/sun.security.x509=ALL-UNNAMED --add-exports=java.base/sun.security.internal.spec=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED"
+      chmod -R +x .
+      ./bin/run-example SparkPi

@@ -11,7 +11,8 @@ steps:
     name: "Building spark"
     command: |
       chmod -R +x ./build/mvn
-      ./build/mvn -DskipTests clean package
+      export MAVEN_OPTS="-Djava.net.preferIPv4Stack=true"
+      ./build/mvn -DskipTests -Djava.net.preferIPv4Stack=true clean package
   - type: Command
     name: "Run the Pi example locally"
     command: |
